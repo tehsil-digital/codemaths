@@ -24,21 +24,27 @@ Duplicate one `<li class="lesson-card">...</li>` block in `index.html` and fill 
 
 No other file needs to change — search and layout pick up new cards automatically.
 
-## Deploying to DigitalOcean App Platform (free)
+## Deploying to DigitalOcean App Platform (free, via GitHub Actions)
 
-App Platform's free tier includes up to 3 static sites per account (1 GiB outbound transfer/month each), with automatic HTTPS and a CDN. Config for this is already checked in at `../.do/app.yaml`.
+App Platform's free tier includes up to 3 static sites per account (1 GiB outbound transfer/month each), with automatic HTTPS and a CDN. Deploys are meant to be handled by `.github/workflows/deploy.yml`, which runs `digitalocean/app_action` against the spec in [`../.do/app.yaml`](../.do/app.yaml) on every push to `main`. The app spec already points at `codemaths.xyz` as the primary domain.
 
-1. Push this repo to GitHub (already done if you're reading this from the repo).
-2. In the [DigitalOcean control panel](https://cloud.digitalocean.com/apps), click **Create App** → **GitHub** → select the `codemaths` repo and the `main` branch.
-3. DigitalOcean should detect `.do/app.yaml` automatically. If asked manually: component type **Static Site**, source directory `site`, no build command, output directory `/`.
-4. On the plan-selection step, choose the **Static Sites — Free** tier.
-5. Deploy. DigitalOcean gives you a URL like `https://codemaths-lean-lessons-xxxxx.ondigitalocean.app`.
-6. Once you have a real domain (custom or the DO-assigned one), update the placeholder URLs (`https://codemaths.tehsil.digital/`) in `index.html` (`canonical`, `og:url`), `sitemap.xml`, and `robots.txt` to match, then commit and push — App Platform redeploys automatically.
+**Note:** the workflow file itself isn't pushed to this branch yet — the bot that made these commits doesn't have `workflows` permission on the GitHub App installation, so GitHub rejects any push touching `.github/workflows/*`. See the PR description for the exact file content to add, and two ways to get it in.
 
-Alternatively, deploy via the CLI: `doctl apps create --spec .do/app.yaml` (run from the repo root, after `doctl auth init`).
+One-time setup (only you can do these — they need account/domain access this agent doesn't have):
+
+1. **Create a DigitalOcean API token**: [cloud.digitalocean.com/account/api/tokens](https://cloud.digitalocean.com/account/api/tokens) → Generate New Token → give it write access.
+2. **Add it as a GitHub secret** on this repo, named `DIGITALOCEAN_ACCESS_TOKEN`:
+   ```sh
+   gh secret set DIGITALOCEAN_ACCESS_TOKEN --repo tehsil-digital/codemaths
+   ```
+   (or Settings → Secrets and variables → Actions → New repository secret, in the GitHub UI).
+3. **Point `codemaths.xyz` at DigitalOcean.** At your domain registrar, either delegate the domain's nameservers to DigitalOcean (`ns1.digitalocean.com`, `ns2.digitalocean.com`, `ns3.digitalocean.com`), or add the CNAME/A record App Platform gives you after the first deploy (Settings → Domains on the app, once it exists). DNS propagation can take up to 24-48 hours.
+4. Push to `main` (or run the workflow manually from the Actions tab) — the first run creates the app from `.do/app.yaml`; every push after that updates it in place.
+
+No manual `doctl` or control-panel app creation needed — the workflow creates the app itself on first run. If you'd rather do a one-off manual deploy: `doctl apps create --spec .do/app.yaml` (after `doctl auth init`).
 
 ## Getting indexed by Google
 
-- Submit the sitemap (`/sitemap.xml`) in [Google Search Console](https://search.google.com/search-console) once the site is live at its real URL.
-- Keep `robots.txt` and `sitemap.xml` pointed at the real domain (see step 6 above) — Google won't index a site whose sitemap references the wrong host.
+- Submit the sitemap (`/sitemap.xml`) in [Google Search Console](https://search.google.com/search-console) once `codemaths.xyz` is live and DNS has propagated.
+- `index.html`, `sitemap.xml`, and `robots.txt` are already pointed at `https://codemaths.xyz/` — Google won't index a site whose sitemap references the wrong host.
 - Because lesson content is plain HTML (not injected by JavaScript after load), it's crawlable even without JS execution.
