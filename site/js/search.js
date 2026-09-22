@@ -18,12 +18,12 @@
 
     indexed.forEach(function (item) {
       var match = query === "" || item.text.indexOf(query) !== -1;
-      item.card.style.display = match ? "" : "none";
+      item.card.classList.toggle("hidden", !match);
       if (match) visible += 1;
     });
 
     resultsCount.textContent = visible + (visible === 1 ? " lesson" : " lessons");
-    noResults.style.display = visible === 0 ? "block" : "none";
+    noResults.classList.toggle("hidden", visible !== 0);
   }
 
   input.addEventListener("input", render);
