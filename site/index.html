@@ -56,7 +56,20 @@
 </head>
 <body class="bg-slate-950 text-slate-100 antialiased">
 
-  <header class="relative overflow-hidden border-b border-slate-800">
+  <nav class="sticky top-0 z-20 border-b border-slate-800 bg-slate-950/90 backdrop-blur">
+    <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+      <a href="#top" class="flex items-center gap-2 text-sm font-semibold text-white">
+        <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-500 font-mono text-sm">λ</span>
+        CodeMaths
+      </a>
+      <div class="flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="#lessons" class="transition hover:text-white">Lessons</a>
+        <a href="#about" class="transition hover:text-white">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <header id="top" class="relative scroll-mt-16 overflow-hidden border-b border-slate-800">
     <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_-10%,rgba(99,102,241,0.25),transparent_45%),radial-gradient(circle_at_80%_0%,rgba(56,189,248,0.15),transparent_40%)]"></div>
     <div class="relative mx-auto max-w-5xl px-6 py-16 sm:py-20">
       <div class="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-300">
@@ -84,8 +97,29 @@
     </div>
   </header>
 
-  <main class="mx-auto max-w-5xl px-6 py-12">
-    <p class="mb-6 text-sm text-slate-500" id="results-count" aria-live="polite"></p>
+  <main id="lessons" class="mx-auto max-w-5xl scroll-mt-16 px-6 py-12">
+    <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <p class="text-sm text-slate-500" id="results-count" aria-live="polite"></p>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <label class="flex items-center gap-2 text-sm text-slate-400">
+          Sort
+          <select id="sort-order" class="rounded-lg border border-slate-700 bg-slate-900 px-2 py-1.5 text-sm text-slate-200 outline-none focus:border-indigo-500">
+            <option value="asc">Title A&ndash;Z</option>
+            <option value="desc">Title Z&ndash;A</option>
+          </select>
+        </label>
+        <label class="flex items-center gap-2 text-sm text-slate-400">
+          Per page
+          <select id="page-size" class="rounded-lg border border-slate-700 bg-slate-900 px-2 py-1.5 text-sm text-slate-200 outline-none focus:border-indigo-500">
+            <option value="6">6</option>
+            <option value="9" selected>9</option>
+            <option value="12">12</option>
+            <option value="24">24</option>
+          </select>
+        </label>
+      </div>
+    </div>
 
     <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" id="lesson-grid">
       <li class="lesson-card group flex flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 transition hover:-translate-y-0.5 hover:border-indigo-500/40 hover:shadow-xl hover:shadow-indigo-950/40">
@@ -183,7 +217,18 @@
     </ul>
 
     <p class="hidden py-16 text-center text-slate-500" id="no-results">No lessons match your search.</p>
+
+    <nav class="mt-10 flex flex-wrap items-center justify-center gap-2" id="pagination" aria-label="Lesson pages"></nav>
   </main>
+
+  <section id="about" class="border-t border-slate-800 scroll-mt-16">
+    <div class="mx-auto max-w-5xl px-6 py-16">
+      <h2 class="text-2xl font-bold tracking-tight text-white">About</h2>
+      <p class="mt-4 max-w-2xl leading-relaxed text-slate-400">
+        CodeMaths is a free catalog of Lean 4 lessons built for undergraduate students learning formal theorem proving. Each lesson links to a short video and, where one exists, a companion code repo you can clone and run alongside it. New lessons are added over time &mdash; use search, sorting, and pagination above to find what you need.
+      </p>
+    </div>
+  </section>
 
   <footer class="border-t border-slate-800">
     <div class="mx-auto max-w-5xl px-6 py-8 text-center text-sm text-slate-500">
