@@ -1,0 +1,14 @@
+name: codemaths-lean-lessons
+domains:
+  - domain: codemaths.xyz
+    type: PRIMARY
+static_sites:
+  - name: web
+    github:
+      repo: tehsil-digital/codemaths
+      branch: main
+      deploy_on_push: false
+    source_dir: site
+    output_dir: /
+    index_document: index.html
+    error_document: index.html

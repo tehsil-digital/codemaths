@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lean 4 Lessons for Undergraduates | CodeMaths</title>
+  <meta name="description" content="Free, searchable Lean 4 video lessons for undergraduate students learning formal theorem proving — each with a linked tutorial video and companion code repo.">
+  <link rel="canonical" href="https://codemaths.xyz/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lean 4 Lessons for Undergraduates | CodeMaths">
+  <meta property="og:description" content="Free, searchable Lean 4 video lessons for undergraduate students learning formal theorem proving.">
+  <meta property="og:url" content="https://codemaths.xyz/">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Lean 4 Lessons for Undergraduates | CodeMaths">
+  <meta name="twitter:description" content="Free, searchable Lean 4 video lessons for undergraduate students learning formal theorem proving.">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%236366f1'/%3E%3Ctext x='50' y='68' font-size='60' font-family='monospace' fill='%23ffffff' text-anchor='middle'%3E%CE%BB%3C/text%3E%3C/svg%3E">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Lean 4 Lessons",
+  "description": "Video lessons on Lean 4 and formal theorem proving for undergraduate students.",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Getting Started with Lean 4",
+      "url": "https://www.youtube.com/watch?v=REPLACE_ME_1"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Proofs and Tactics",
+      "url": "https://www.youtube.com/watch?v=REPLACE_ME_2"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Induction on the Natural Numbers",
+      "url": "https://www.youtube.com/watch?v=REPLACE_ME_3"
+    }
+  ]
+}
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased">
+
+  <nav class="sticky top-0 z-20 border-b border-slate-800 bg-slate-950/90 backdrop-blur">
+    <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+      <a href="/" data-route-link class="flex items-center gap-2 text-sm font-semibold text-white">
+        <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-500 font-mono text-sm">λ</span>
+        CodeMaths
+      </a>
+      <div class="flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="/" data-route-link class="transition hover:text-white">Lessons</a>
+        <a href="/about" data-route-link class="transition hover:text-white">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <header id="top" class="relative scroll-mt-16 overflow-hidden border-b border-slate-800">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_-10%,rgba(99,102,241,0.25),transparent_45%),radial-gradient(circle_at_80%_0%,rgba(56,189,248,0.15),transparent_40%)]"></div>
+    <div class="relative mx-auto max-w-5xl px-6 py-16 sm:py-20">
+      <div class="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-300">
+        <span class="font-mono">λ</span>
+        <span>Lean 4 &middot; Formal Theorem Proving</span>
+      </div>
+
+      <h1 class="mt-5 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+        Lean&nbsp;4 Lessons
+      </h1>
+      <p class="mt-4 max-w-2xl text-lg leading-relaxed text-slate-400">
+        A free, searchable catalog of Lean 4 video lessons for undergraduate students — formal proof, tactics, and Mathlib, taught step by step. Every lesson links to a video and, where available, a companion code repo.
+      </p>
+
+      <div class="mt-8 max-w-lg" role="search">
+        <label for="lesson-search" class="sr-only">Search lessons</label>
+        <div class="group flex items-center gap-3 rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-3 shadow-lg shadow-black/20 transition focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-none text-slate-500 transition group-focus-within:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+          <input type="search" id="lesson-search" placeholder="Search by topic — induction, tactics, Mathlib..." autocomplete="off"
+                 class="w-full bg-transparent text-base text-slate-100 placeholder-slate-500 outline-none">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="lessons" class="mx-auto max-w-5xl scroll-mt-16 px-6 py-12">
+    <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <p class="text-sm text-slate-500" id="results-count" aria-live="polite"></p>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <label class="flex items-center gap-2 text-sm text-slate-400">
+          Sort
+          <select id="sort-order" class="rounded-lg border border-slate-700 bg-slate-900 px-2 py-1.5 text-sm text-slate-200 outline-none focus:border-indigo-500">
+            <option value="asc">Title A&ndash;Z</option>
+            <option value="desc">Title Z&ndash;A</option>
+          </select>
+        </label>
+        <label class="flex items-center gap-2 text-sm text-slate-400">
+          Per page
+          <select id="page-size" class="rounded-lg border border-slate-700 bg-slate-900 px-2 py-1.5 text-sm text-slate-200 outline-none focus:border-indigo-500">
+            <option value="6">6</option>
+            <option value="9" selected>9</option>
+            <option value="12">12</option>
+            <option value="24">24</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" id="lesson-grid">
+<!-- LESSON_CARDS:START -->
+      <li class="lesson-card group flex flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 transition hover:-translate-y-0.5 hover:border-indigo-500/40 hover:shadow-xl hover:shadow-indigo-950/40">
+        <a class="relative block aspect-video overflow-hidden bg-black" href="https://www.youtube.com/watch?v=REPLACE_ME_1" target="_blank" rel="noopener">
+          <img class="h-full w-full object-cover opacity-90 transition duration-300 group-hover:scale-105 group-hover:opacity-100"
+               src="https://i.ytimg.com/vi/REPLACE_ME_1/hqdefault.jpg" alt="Video thumbnail for Getting Started with Lean 4" loading="lazy" width="480" height="360">
+          <span class="absolute inset-0 flex items-center justify-center bg-slate-950/10 opacity-0 transition group-hover:opacity-100" aria-hidden="true">
+            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-white/95 text-slate-900 shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 translate-x-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+          </span>
+        </a>
+        <div class="flex flex-1 flex-col gap-3 p-5">
+          <h2 class="text-lg font-semibold leading-snug text-white">
+            <a class="transition hover:text-indigo-400" href="https://www.youtube.com/watch?v=REPLACE_ME_1" target="_blank" rel="noopener">Getting Started with Lean 4</a>
+          </h2>
+          <p class="line-clamp-2 text-sm text-slate-400">Sample lesson — install Lean 4 and VS Code, open your first file, and check your first proof. Replace this file&#x27;s video, description, and links with a real lesson.</p>
+          <ul class="flex flex-wrap gap-2">
+            <li class="rounded-full border border-slate-700 bg-slate-800/70 px-2.5 py-0.5 text-xs text-slate-400">basics</li>
+            <li class="rounded-full border border-slate-700 bg-slate-800/70 px-2.5 py-0.5 text-xs text-slate-400">setup</li>
+          </ul>
+          <div class="mt-auto flex flex-wrap gap-2 pt-2">
+            <a class="inline-flex items-center gap-1.5 rounded-lg bg-indigo-500 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-indigo-400" href="https://www.youtube.com/watch?v=REPLACE_ME_1" target="_blank" rel="noopener">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              Watch on YouTube
+            </a>
+            <a class="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 px-3 py-1.5 text-sm font-medium text-slate-300 transition hover:border-slate-600 hover:text-white" href="https://github.com/tehsil-digital/codemaths" target="_blank" rel="noopener">
+              Code repo
+            </a>
+          </div>
+        </div>
+      </li>
+
+      <li class="lesson-card group flex flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 transition hover:-translate-y-0.5 hover:border-indigo-500/40 hover:shadow-xl hover:shadow-indigo-950/40">
+        <a class="relative block aspect-video overflow-hidden bg-black" href="https://www.youtube.com/watch?v=REPLACE_ME_2" target="_blank" rel="noopener">
+          <img class="h-full w-full object-cover opacity-90 transition duration-300 group-hover:scale-105 group-hover:opacity-100"
+               src="https://i.ytimg.com/vi/REPLACE_ME_2/hqdefault.jpg" alt="Video thumbnail for Proofs and Tactics" loading="lazy" width="480" height="360">
+          <span class="absolute inset-0 flex items-center justify-center bg-slate-950/10 opacity-0 transition group-hover:opacity-100" aria-hidden="true">
+            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-white/95 text-slate-900 shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 translate-x-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+          </span>
+        </a>
+        <div class="flex flex-1 flex-col gap-3 p-5">
+          <h2 class="text-lg font-semibold leading-snug text-white">
+            <a class="transition hover:text-indigo-400" href="https://www.youtube.com/watch?v=REPLACE_ME_2" target="_blank" rel="noopener">Proofs and Tactics</a>
+          </h2>
+          <p class="line-clamp-2 text-sm text-slate-400">Sample lesson — an introduction to tactic mode: intro, apply, exact, and rw. Replace this file&#x27;s video, description, and links with a real lesson.</p>
+          <ul class="flex flex-wrap gap-2">
+            <li class="rounded-full border border-slate-700 bg-slate-800/70 px-2.5 py-0.5 text-xs text-slate-400">tactics</li>
+            <li class="rounded-full border border-slate-700 bg-slate-800/70 px-2.5 py-0.5 text-xs text-slate-400">proofs</li>
+          </ul>
+          <div class="mt-auto flex flex-wrap gap-2 pt-2">
+            <a class="inline-flex items-center gap-1.5 rounded-lg bg-indigo-500 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-indigo-400" href="https://www.youtube.com/watch?v=REPLACE_ME_2" target="_blank" rel="noopener">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              Watch on YouTube
+            </a>
+            <a class="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 px-3 py-1.5 text-sm font-medium text-slate-300 transition hover:border-slate-600 hover:text-white" href="https://github.com/tehsil-digital/codemaths" target="_blank" rel="noopener">
+              Code repo
+            </a>
+          </div>
+        </div>
+      </li>
+
+      <li class="lesson-card group flex flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 transition hover:-translate-y-0.5 hover:border-indigo-500/40 hover:shadow-xl hover:shadow-indigo-950/40">
+        <a class="relative block aspect-video overflow-hidden bg-black" href="https://www.youtube.com/watch?v=REPLACE_ME_3" target="_blank" rel="noopener">
+          <img class="h-full w-full object-cover opacity-90 transition duration-300 group-hover:scale-105 group-hover:opacity-100"
+               src="https://i.ytimg.com/vi/REPLACE_ME_3/hqdefault.jpg" alt="Video thumbnail for Induction on the Natural Numbers" loading="lazy" width="480" height="360">
+          <span class="absolute inset-0 flex items-center justify-center bg-slate-950/10 opacity-0 transition group-hover:opacity-100" aria-hidden="true">
+            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-white/95 text-slate-900 shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 translate-x-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+          </span>
+        </a>
+        <div class="flex flex-1 flex-col gap-3 p-5">
+          <h2 class="text-lg font-semibold leading-snug text-white">
+            <a class="transition hover:text-indigo-400" href="https://www.youtube.com/watch?v=REPLACE_ME_3" target="_blank" rel="noopener">Induction on the Natural Numbers</a>
+          </h2>
+          <p class="line-clamp-2 text-sm text-slate-400">Sample lesson — proving properties of natural numbers by induction in Lean 4. Replace this file&#x27;s video, description, and links with a real lesson.</p>
+          <ul class="flex flex-wrap gap-2">
+            <li class="rounded-full border border-slate-700 bg-slate-800/70 px-2.5 py-0.5 text-xs text-slate-400">induction</li>
+            <li class="rounded-full border border-slate-700 bg-slate-800/70 px-2.5 py-0.5 text-xs text-slate-400">mathlib</li>
+          </ul>
+          <div class="mt-auto flex flex-wrap gap-2 pt-2">
+            <a class="inline-flex items-center gap-1.5 rounded-lg bg-indigo-500 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-indigo-400" href="https://www.youtube.com/watch?v=REPLACE_ME_3" target="_blank" rel="noopener">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              Watch on YouTube
+            </a>
+            <a class="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 px-3 py-1.5 text-sm font-medium text-slate-300 transition hover:border-slate-600 hover:text-white" href="https://github.com/tehsil-digital/codemaths" target="_blank" rel="noopener">
+              Code repo
+            </a>
+          </div>
+        </div>
+      </li>
+<!-- LESSON_CARDS:END -->
+    </ul>
+
+    <p class="hidden py-16 text-center text-slate-500" id="no-results">No lessons match your search.</p>
+
+    <nav class="mt-10 flex flex-wrap items-center justify-center gap-2" id="pagination" aria-label="Lesson pages"></nav>
+  </main>
+
+  <section id="about" class="hidden">
+    <div class="mx-auto max-w-5xl px-6 py-16">
+      <h1 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">About CodeMaths</h1>
+      <p class="mt-4 max-w-2xl leading-relaxed text-slate-400">
+        CodeMaths is a free catalog of Lean 4 lessons built for undergraduate students learning formal theorem proving. Each lesson links to a short video and, where one exists, a companion code repo you can clone and run alongside it.
+      </p>
+      <p class="mt-4 max-w-2xl leading-relaxed text-slate-400">
+        New lessons are added over time &mdash; head back to the catalog to search, sort, and page through what's available.
+      </p>
+      <a href="/" data-route-link class="mt-8 inline-flex items-center gap-1.5 rounded-lg bg-indigo-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-400">
+        &larr; Back to lessons
+      </a>
+    </div>
+  </section>
+
+  <footer class="border-t border-slate-800">
+    <div class="mx-auto max-w-5xl px-6 py-8 text-center text-sm text-slate-500">
+      <p>&copy; 2026 CodeMaths &mdash; Lean 4 lessons for undergraduate students.</p>
+      <p class="mt-1">
+        Built with
+        <a class="text-slate-400 underline decoration-slate-700 underline-offset-2 transition hover:text-indigo-400" href="https://oyren.ai" target="_blank" rel="noopener">Oyren</a>.
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/search.js" defer></script>
+  <script src="js/router.js" defer></script>
+</body>
+</html>
