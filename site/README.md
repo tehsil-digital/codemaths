@@ -1,28 +1,49 @@
 # CodeMaths — Lean 4 Lessons (site)
 
-Plain static HTML/CSS/JS — no build step, no framework. All lesson content lives directly in `index.html` so search engines can crawl it without running JavaScript; the search box in `js/search.js` just hides/shows cards client-side.
+Plain static HTML/CSS/JS — no build step, no framework, Tailwind loaded via CDN. Lesson content is generated *into* `index.html` from Markdown files (see below) so search engines still see it as plain HTML, with search/sort/pagination and the About page routed client-side as progressive enhancement (`js/search.js`, `js/router.js`).
 
 ## Local development
 
-No build tooling required. From this directory:
+No build tooling required to serve the site. From this directory:
 
 ```sh
 python3 -m http.server 8000
 ```
 
-Then open `http://localhost:8000`.
+Then open `http://localhost:8000`. (Client-side navigation to `/about` via the nav link works fine; loading `/about` directly in a fresh tab needs a server with SPA fallback, which Python's simple server doesn't do — App Platform's `error_document` config handles this in production. See "Adding a lesson" below for the one command that needs Python + PyYAML, which this container already has.)
 
 ## Adding a lesson
 
-Duplicate one `<li class="lesson-card">...</li>` block in `index.html` and fill in:
+Lessons live as one Markdown file each in [`../lessons/`](../lessons/), not hand-written HTML. Add a new lesson in two steps:
 
-- The YouTube video ID in both the thumbnail `<img src>` (`https://i.ytimg.com/vi/<ID>/hqdefault.jpg`) and the two `<a href="https://www.youtube.com/watch?v=<ID>">` links
-- The lesson title (appears in the `<h2>` and the thumbnail `alt` text)
-- A short description
-- `<li>` tags under `.lesson-tags` for topics (used by search)
-- The "Code repo" link — remove that `<a>` entirely if there's no companion repo for that lesson
+1. Create `../lessons/<NN>-<slug>.md` (the `NN-` prefix controls display order — files are sorted by filename):
 
-No other file needs to change — search and layout pick up new cards automatically.
+   ```markdown
+   ---
+   title: Getting Started with Lean 4
+   youtube_id: dQw4w9WgXcQ
+   tags:
+     - basics
+     - setup
+   repo_url: https://github.com/tehsil-digital/codemaths   # optional — omit the field to skip the "Code repo" button
+   ---
+   A short description of the lesson. Plain text (HTML-escaped automatically) —
+   this is the body, everything after the second `---`.
+   ```
+
+   `title` and `youtube_id` are required. `tags` and `repo_url` are optional.
+
+2. Regenerate `index.html` from the repo root:
+
+   ```sh
+   python3 scripts/build_lessons.py
+   ```
+
+   This rewrites only the generated lesson cards (between the `<!-- LESSON_CARDS:START/END -->` markers) and the JSON-LD `<script>` block in `site/index.html` — it never touches CSS, JS, or anything else in the page. Commit both the new `.md` file and the regenerated `site/index.html`.
+
+Markdown was chosen over a single JSON file specifically so descriptions can be normal multi-line prose instead of an escaped JSON string, and so each lesson is its own reviewable diff. The GitHub Actions deploy workflow also runs this script before deploying, so even an unbuilt `index.html` gets regenerated at deploy time — but committing the built HTML keeps local preview and Git history accurate.
+
+Removing a lesson: delete its `.md` file and re-run the build script.
 
 ## Deploying to DigitalOcean App Platform (free, via GitHub Actions)
 
