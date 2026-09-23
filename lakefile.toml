@@ -4,3 +4,10 @@ defaultTargets = ["Lesson001"]
 
 [[lean_lib]]
 name = "Lesson001"
+
+# Mathlib, pinned to the SAME version as lean-toolchain — bump both together or
+# `lake exe cache get` finds no prebuilt oleans and the build compiles for hours.
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+version = "git#v4.24.0"
