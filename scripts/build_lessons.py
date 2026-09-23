@@ -32,26 +32,26 @@ JSONLD_RE = re.compile(
     r'<script type="application/ld\+json">.*?</script>', re.DOTALL
 )
 
-CARD_TEMPLATE = """      <li class="lesson-card group flex flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 transition hover:-translate-y-0.5 hover:border-indigo-500/40 hover:shadow-xl hover:shadow-indigo-950/40">
+CARD_TEMPLATE = """      <li class="lesson-card group flex flex-col overflow-hidden rounded-2xl border border-stone-800 bg-stone-900 transition hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-xl hover:shadow-brand/10">
         <a class="relative block aspect-video overflow-hidden bg-black" href="{watch_url}" target="_blank" rel="noopener">
           <img class="h-full w-full object-cover opacity-90 transition duration-300 group-hover:scale-105 group-hover:opacity-100"
                src="{thumbnail_url}" alt="Video thumbnail for {title}" loading="lazy" width="480" height="360">
-          <span class="absolute inset-0 flex items-center justify-center bg-slate-950/10 opacity-0 transition group-hover:opacity-100" aria-hidden="true">
-            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-white/95 text-slate-900 shadow-lg">
+          <span class="absolute inset-0 flex items-center justify-center bg-stone-950/10 opacity-0 transition group-hover:opacity-100" aria-hidden="true">
+            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-white/95 text-stone-900 shadow-lg">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 translate-x-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </span>
           </span>
         </a>
         <div class="flex flex-1 flex-col gap-3 p-5">
           <h2 class="text-lg font-semibold leading-snug text-white">
-            <a class="transition hover:text-indigo-400" href="{watch_url}" target="_blank" rel="noopener">{title}</a>
+            <a class="transition hover:text-brand" href="{watch_url}" target="_blank" rel="noopener">{title}</a>
           </h2>
-          <p class="line-clamp-2 text-sm text-slate-400">{description}</p>
+          <p class="line-clamp-2 text-sm text-stone-400">{description}</p>
           <ul class="flex flex-wrap gap-2">
 {tags_html}
           </ul>
           <div class="mt-auto flex flex-wrap gap-2 pt-2">
-            <a class="inline-flex items-center gap-1.5 rounded-lg bg-indigo-500 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-indigo-400" href="{watch_url}" target="_blank" rel="noopener">
+            <a class="inline-flex items-center gap-1.5 rounded-lg bg-brand px-3 py-1.5 text-sm font-medium text-black transition hover:bg-brand/90" href="{watch_url}" target="_blank" rel="noopener">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
               Watch on YouTube
             </a>{repo_link}
@@ -60,11 +60,11 @@ CARD_TEMPLATE = """      <li class="lesson-card group flex flex-col overflow-hid
       </li>"""
 
 REPO_LINK_TEMPLATE = """
-            <a class="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 px-3 py-1.5 text-sm font-medium text-slate-300 transition hover:border-slate-600 hover:text-white" href="{repo_url}" target="_blank" rel="noopener">
+            <a class="inline-flex items-center gap-1.5 rounded-lg border border-stone-700 px-3 py-1.5 text-sm font-medium text-stone-300 transition hover:border-stone-600 hover:text-white" href="{repo_url}" target="_blank" rel="noopener">
               Code repo
             </a>"""
 
-TAG_TEMPLATE = '            <li class="rounded-full border border-slate-700 bg-slate-800/70 px-2.5 py-0.5 text-xs text-slate-400">{tag}</li>'
+TAG_TEMPLATE = '            <li class="rounded-full border border-stone-700 bg-stone-800/70 px-2.5 py-0.5 text-xs text-stone-400">{tag}</li>'
 
 
 def load_lessons():
